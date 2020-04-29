@@ -39,4 +39,4 @@ _____________________________________
 /api/users       | GET     | logout user
 
 
-<img src="images/IMG_1020.JPG"
+<img src="images/IMG_1020.JPG"/>
