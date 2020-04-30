@@ -2,7 +2,7 @@ from flask import Flask
 
 from resources.products import products
 import models
-
+from resources.users import users
 
 DEBUG=True
 PORT=8000
@@ -10,6 +10,7 @@ PORT=8000
 app = Flask(__name__)
 
 app.register_blueprint(products, url_prefix='/api/v1/products')
+app.register_blueprint(users, url_prefix='/api/v1/users')
 
 
 @app.route('/')
