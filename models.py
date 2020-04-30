@@ -17,7 +17,7 @@ class User(UserMixin, Model):
 	class Meta:
 		database = DATABASE
 
-class Products(Model):
+class Product(Model):
 	user = ForeignKeyField(User, backref='products')
 	name=CharField()
 	flavors=CharField()
@@ -28,6 +28,6 @@ class Products(Model):
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([User, Products], safe=True)
+	DATABASE.create_tables([User, Product], safe=True)
 	print('connected to models and tables')
 	DATABASE.close()
