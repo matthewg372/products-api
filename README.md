@@ -15,7 +15,7 @@ class Products(Model):
 	name=CharField()
 	flavors=CharField()
 	quantity=BitField()
-	price=Bitfield
+	price=BitField()
 	class Meta:
 		database
 
