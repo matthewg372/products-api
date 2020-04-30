@@ -22,7 +22,7 @@ class Products(Model):
 
 ```
 
-
+```
 url              |	httpVerb| result
 _____________________________________
 /api/products    | GET     | returns all products
@@ -37,7 +37,7 @@ _____________________________________
 /api/users       | POST    | register a user
 /api/users       | POST    | login user
 /api/users       | GET     | logout user
-
+```
 
 <img src="images/IMG_1020.JPG"/>
 <img src="images/IMG_1021.JPG"/>
