@@ -5,10 +5,17 @@ from flask_login import current_user
 
 products = Blueprint('products', 'products')
 
+"""index for specific logged in people"""
 @products.route('/', methods=['GET'])
-def connected():
-	return 'connected to Blueprint'
-
+def products_index():
+	current_user_product_dicts = [model_to_dict(product) for product in current_user.products]
+	for product_dict in current_user_product_dicts:
+		product_dict['user'].pop('password')
+	return jsonify(
+		data= current_user_product_dicts,
+		message= f"Successfully found {len(current_user_product_dicts)} products",
+		status= 200
+	), 200
 
 @products.route('/', methods=['POST'])
 def create_products():
