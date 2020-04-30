@@ -72,7 +72,15 @@ def login():
 			status=401
 		), 401
 
+@users.route('/logout', methods=['GET'])
+def logout():
+	logout_user()
+	return jsonify(
+		data={},
+		message="successfuly logged out",
+		status=200
 
+	), 200
 
 
 
