@@ -7,7 +7,7 @@ products = Blueprint('products', 'products')
 
 """index for specific logged in people"""
 @products.route('/', methods=['GET'])
-def products_index():
+def user_products_index():
 	current_user_product_dicts = [model_to_dict(product) for product in current_user.products]
 	for product_dict in current_user_product_dicts:
 		product_dict['user'].pop('password')
@@ -16,6 +16,26 @@ def products_index():
 		message= f"Successfully found {len(current_user_product_dicts)} products",
 		status= 200
 	), 200
+
+
+@products.route('/all', methods=['GET'])
+def user_index():
+
+	products = models.Product.select()
+	product_dicts = [ model_to_dict(product) for product in products ]
+
+	for product_dict in product_dicts:
+		product_dict['user'].pop('password')
+
+	return jsonify(product_dicts), 200
+
+
+
+
+
+
+
+
 
 @products.route('/', methods=['POST'])
 def create_products():
