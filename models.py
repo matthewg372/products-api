@@ -22,12 +22,19 @@ class Product(Model):
 	name=CharField()
 	flavors=CharField()
 	quantity=IntegerField()
-	price=DecimalField()
+	price=FloatField()
+	class Meta:
+		database = DATABASE
+
+class Like(Model):
+	user = ForeignKeyField(User, backref='likes')
+	product = ForeignKeyField(Product, backref='likes')
+	likes=IntegerField()
 	class Meta:
 		database = DATABASE
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([User, Product], safe=True)
+	DATABASE.create_tables([User, Product, Like], safe=True)
 	print('connected to models and tables')
 	DATABASE.close()

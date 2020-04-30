@@ -1,8 +1,9 @@
 from flask import Flask, jsonify
 
-from resources.products import products
 import models
+from resources.products import products
 from resources.users import users
+from resources.likes import likes
 
 from flask_login import LoginManager
 
@@ -34,6 +35,7 @@ def unauthorized():
 
 app.register_blueprint(products, url_prefix='/api/v1/products')
 app.register_blueprint(users, url_prefix='/api/v1/users')
+app.register_blueprint(likes, url_prefix='/api/v1/likes')
 
 
 @app.route('/')

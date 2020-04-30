@@ -6,9 +6,9 @@ from flask_login import current_user, login_required
 products = Blueprint('products', 'products')
 
 """index for specific logged in people"""
-@products.route('/users', methods=['GET'])
+@products.route('/users/<id>', methods=['GET'])
 @login_required
-def user_products_index():
+def user_products_index(id):
 	current_user_product_dicts = [model_to_dict(product) for product in current_user.products]
 	for product_dict in current_user_product_dicts:
 		product_dict['user'].pop('password')
@@ -27,6 +27,7 @@ def user_index():
 
 	for product_dict in product_dicts:
 		product_dict['user'].pop('password')
+
 
 	return jsonify(product_dicts), 200
 
