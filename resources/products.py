@@ -35,3 +35,59 @@ def create_products():
 		message="succesfully created product",
 		status=200
 	), 200
+
+
+@products.route('/<id>', methods=['DELETE'])
+def delete_products(id):
+	product_to_delete = models.Product.get_by_id(id)
+	if current_user.id == product_to_delete.user.id:
+		delete_query = models.Product.delete().where(models.Product.id == id)
+		delete_query.execute()
+		return jsonify(
+			data={},
+			message=f"succesfully deleted {id}",
+			status=200
+		), 200
+	else:
+		return jsonify(
+			data={},
+			message="you must be logged in to delete this",
+			status=403
+		), 403
+
+@products.route('/<id>', methods=['PUT'])
+def update_product(id):
+	payload = request.get_json()
+	product_to_update = models.Product.get_by_id(id)
+	if current_user.id == product_to_update.user.id:
+		if 'name' in payload:
+			product_to_update.name=payload['name']
+		if 'flavors' in payload:
+			product_to_update.flavors=payload['flavors']
+		if 'quantity' in payload:
+			product_to_update.quantity=payload['quantity']
+		if 'price' in payload:
+			product_to_update.price=payload['price']
+		product_to_update.save()
+		updated_product_dict = model_to_dict(product_to_update)
+		updated_product_dict['user'].pop('password')
+		return jsonify(
+			data=updated_product_dict,
+			message=f"succesfully updated {id}",
+			status=200
+		),200
+	else:
+		return jsonify(
+			data={},
+			message=f"you must be logged in to updated",
+			status=403
+		), 403
+
+
+
+
+
+
+
+
+
