@@ -4,8 +4,11 @@ import models
 from resources.products import products
 from resources.users import users
 from resources.likes import likes
-
 from flask_login import LoginManager
+from flask_cors import CORS 
+
+
+
 
 DEBUG=True
 PORT=8000
@@ -30,8 +33,9 @@ def unauthorized():
 	),401
 
 
-
-
+cors = CORS(products, origins=['http://localhost:3000'], supports_credentials=True)
+cors = CORS(likes, origins=['http://localhost:3000'], supports_credentials=True)
+cors = CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(products, url_prefix='/api/v1/products')
 app.register_blueprint(users, url_prefix='/api/v1/users')
