@@ -10,26 +10,35 @@ class User(UserMixin, Model):
 	class Meta:
 		database = DATABASE
 
-class Products(Model):
+class Product(Model):
 	user = ForeignKeyField(User, backref='products')
 	name=CharField()
 	flavors=CharField()
-	quantity=BitField()
-	price=BitField()
+	quantity=IntegerField()
+	price=DecimalField()
 	class Meta:
 		database
 
+##Stretch goal	
+
+class Like(Model):
+	user = ForeignKeyField(User, backref='likes')
+	product = ForeignKeyField(Product, backref='likes')
+	likes=IntegerField()
+	class Meta:
+		database = DATABASE
+
 
 ```
 
 ```
-url              |	httpVerb| result
+url              		|httpVerb | result
 _____________________________________
-/api/products    | GET     | returns all products
-/api/products    | POST    | new product created
-/api/products/id | GET     | shows users products
-/api/products/id | Put     | update a product
-/api/products/id | DELETE  | delete a product
+/api/products    		| GET     | returns all products
+/api/products    		| POST    | new product created
+/api/products/users/<id>| GET     | shows users products
+/api/products/<id> 		| Put     | update a product
+/api/products/<id> 		| DELETE  | delete a product
 
 
 url              |	httpVerb| result

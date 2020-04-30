@@ -21,8 +21,8 @@ class Product(Model):
 	user = ForeignKeyField(User, backref='products')
 	name=CharField()
 	flavors=CharField()
-	quantity=BitField()
-	price=BitField()
+	quantity=IntegerField()
+	price=DecimalField()
 	class Meta:
 		database = DATABASE
 

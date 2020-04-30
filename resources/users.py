@@ -6,10 +6,6 @@ from flask_login import login_user, current_user, logout_user
 
 users = Blueprint('users', 'users')
 
-@users.route('/', methods=['GET'])
-def users_route():
-	return 'connected to users'
-
 
 @users.route('/register', methods=['POST'])
 def register():

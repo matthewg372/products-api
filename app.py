@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 from resources.products import products
 import models
@@ -20,7 +20,13 @@ def load_user(user_id):
 		return models.User.get_by_id(user_id)
 	except models.DoesNotExist:
 		return None 
-
+@login_manager.unauthorized_handler
+def unauthorized():
+	return jsonify(
+		data={'error': 'user not logged in'},
+		message="you must be logged in to do this",
+		status=401
+	),401
 
 
 

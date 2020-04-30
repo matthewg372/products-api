@@ -1,12 +1,13 @@
 import models
 from flask import Blueprint, request, jsonify
 from playhouse.shortcuts import model_to_dict
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 products = Blueprint('products', 'products')
 
 """index for specific logged in people"""
-@products.route('/', methods=['GET'])
+@products.route('/users', methods=['GET'])
+@login_required
 def user_products_index():
 	current_user_product_dicts = [model_to_dict(product) for product in current_user.products]
 	for product_dict in current_user_product_dicts:
@@ -17,7 +18,7 @@ def user_products_index():
 		status= 200
 	), 200
 
-
+""" get all products """
 @products.route('/all', methods=['GET'])
 def user_index():
 
@@ -30,14 +31,9 @@ def user_index():
 	return jsonify(product_dicts), 200
 
 
-
-
-
-
-
-
-
+""" create products """
 @products.route('/', methods=['POST'])
+@login_required
 def create_products():
 	payload = request.get_json()
 	new_products = models.Product.create(
@@ -56,8 +52,9 @@ def create_products():
 		status=200
 	), 200
 
-
+""" delete specific products """
 @products.route('/<id>', methods=['DELETE'])
+@login_required
 def delete_products(id):
 	product_to_delete = models.Product.get_by_id(id)
 	if current_user.id == product_to_delete.user.id:
@@ -75,7 +72,10 @@ def delete_products(id):
 			status=403
 		), 403
 
+
+""" update specific product """
 @products.route('/<id>', methods=['PUT'])
+@login_required
 def update_product(id):
 	payload = request.get_json()
 	product_to_update = models.Product.get_by_id(id)
