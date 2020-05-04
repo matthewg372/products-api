@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, g
 import models
 from resources.products import products
@@ -5,7 +6,6 @@ from resources.users import users
 from resources.likes import likes
 from flask_login import LoginManager
 from flask_cors import CORS 
-import os
 
 
 
@@ -41,21 +41,19 @@ app.register_blueprint(products, url_prefix='/api/v1/products')
 app.register_blueprint(users, url_prefix='/api/v1/users')
 app.register_blueprint(likes, url_prefix='/api/v1/likes')
 
-@app.before_request
+@app.before_request 
 def before_request():
-	print('this is before every request')
-	g.db = models.DATABASE
-	g.db.connect()
+  print("you should see this before each request") 
+  g.db = models.DATABASE
+  g.db.connect()
 
-@app.after_request
+@app.after_request 
 def after_request(response):
-	print("you should see this after every request")
-	g.db.close()
-	return response
 
-@app.route('/')
-def helloWorld():
-	return "hello"
+  print("you should see this after each request") 
+  g.db.close()
+  return response 
+
 
 if 'ON_HEROKU' in os.environ: 
 	print('\non heroku!')
