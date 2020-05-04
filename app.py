@@ -52,7 +52,10 @@ def after_request(response):
 	print("you should see this after each request") 
 	g.db.close()
 	return response 
-
+	
+@app.route('/')
+def hello():
+	return 'hello world'
 
 if 'ON_HEROKU' in os.environ: 
 	print('\non heroku!')
