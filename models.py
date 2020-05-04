@@ -4,7 +4,7 @@ import os
 from playhouse.db_url import connect
 
 if 'ON_HEROKU' in os.environ: 
-  	DATABASE = connect(os.environ.get('postgres://znusabyfibivje:9f7e38afbaa40dc8843f80d3fb3e9d81992774f69a9fcc9fa6a45598a961dee0@ec2-34-195-169-25.compute-1.amazonaws.com:5432/d9ve6uo8pq85dj'))
+  	DATABASE = connect(os.environ.get('DATABASE_URL=postgres://jvngndowwvrhfa:f856fb05e20f3907d143d39899f4f7c8b1c560f14916a3e4f78c16ab7c1e4ccc@ec2-18-233-137-77.compute-1.amazonaws.com:5432/d1hk2vj6c3v6c0'))
 else:
 	DATABASE = SqliteDatabase('products.sqlite')
 
