@@ -33,9 +33,9 @@ def unauthorized():
 	),401
 
 
-cors = CORS(products, origins=['http://localhost:3000'], supports_credentials=True)
-cors = CORS(likes, origins=['http://localhost:3000'], supports_credentials=True)
-cors = CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
+cors = CORS(products, origins=['http://localhost:3000', "https://pre-workout.herokuapp.com"], supports_credentials=True)
+cors = CORS(likes, origins=['http://localhost:3000', "https://pre-workout.herokuapp.com"], supports_credentials=True)
+cors = CORS(users, origins=['http://localhost:3000', "https://pre-workout.herokuapp.com"], supports_credentials=True)
 
 app.register_blueprint(products, url_prefix='/api/v1/products')
 app.register_blueprint(users, url_prefix='/api/v1/users')
@@ -52,7 +52,7 @@ def after_request(response):
 	print("you should see this after each request") 
 	g.db.close()
 	return response 
-	
+
 @app.route('/')
 def hello():
 	return 'hello world'
