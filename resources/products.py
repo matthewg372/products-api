@@ -9,7 +9,9 @@ products = Blueprint('products', 'products')
 @products.route('/users/<id>', methods=['GET'])
 @login_required
 def user_products_index(id):
-	current_user_product_dicts = [model_to_dict(product) for product in current_user.products]
+	user_Product = models.User.get_by_id(id)
+	current_user_product_dicts = [model_to_dict(product) for product in user_Product.products]
+	print(current_user_product_dicts)
 	for product_dict in current_user_product_dicts:
 		product_dict['user'].pop('password')
 	return jsonify(
